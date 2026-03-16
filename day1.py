@@ -25,4 +25,44 @@
 # Given the list of riverbed heights, what is the sum of all the "Safety Peak" heights? (Exclude the -1s from your sum).
 
 
+def read_numbers_into_list():
+    numbers_list = []
+    with open('day1input.txt', 'r') as file:
+        for line in file:
+            number = int(line.strip())
+            numbers_list.append(number)
+    return numbers_list
 
+if __name__ == "__main__":
+
+    # PART 1 OF PROBLEM
+
+    stones = read_numbers_into_list()
+
+    res = 0
+    
+    for i in range(len(stones)):
+        for j in range(i, len(stones)):
+            if stones[j] > stones[i]:
+                res += stones[j]
+                break
+
+    print(res)
+
+    # PART 2 OF PROBLEM
+
+    spans = 0
+
+    for i in range(len(stones)):
+        span = 1
+        curr_h = stones[i]
+        span_i = i - 1
+        while span_i >= 0:
+            span_h = stones[span_i]
+            if span_h > curr_h:
+                break
+            span += 1
+            span_i -= 1
+        spans += span
+
+    print(spans)
